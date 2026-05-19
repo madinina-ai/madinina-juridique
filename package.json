@@ -1,0 +1,12 @@
+{
+  "name": "madinina-juridique",
+  "version": "1.0.0",
+  "description": "Madinina Juridique - Agent IA veille juridique Martinique",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

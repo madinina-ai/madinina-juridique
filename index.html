@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Madinina Juridique — Veille IA Urbanisme & Construction</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:linear-gradient(155deg,#0A1628 0%,#0D1F3C 40%,#152B4A 70%,#0A1628 100%);color:#F0EDE8;display:flex;flex-direction:column}
+.bg1{position:fixed;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(232,184,75,0.08) 0%,transparent 70%);pointer-events:none}
+.bg2{position:fixed;bottom:100px;left:-60px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(42,90,140,0.15) 0%,transparent 70%);pointer-events:none}
+#header{background:rgba(10,22,40,0.85);backdrop-filter:blur(12px);border-bottom:0.5px solid rgba(232,184,75,0.15);padding:12px 16px 10px;flex-shrink:0;z-index:10;position:relative}
+.logo-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#1A3A5C,#2A5A8C);border:1.5px solid rgba(232,184,75,0.3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;line-height:1.1}
+.logo-text .m{color:#E8B84B}.logo-text .t{color:rgba(240,237,232,0.4);margin:0 5px}.logo-text .j{color:#5DD6E3}
+.logo-sub{font-size:10px;color:rgba(240,237,232,0.4);letter-spacing:1px}
+.status{display:flex;align-items:center;gap:5px;background:rgba(232,184,75,0.1);border:0.5px solid rgba(232,184,75,0.25);border-radius:20px;padding:5px 12px}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:pulse 2s infinite}
+.status span{font-size:11px;color:rgba(240,237,232,0.7)}
+.welcome{background:rgba(232,184,75,0.08);border:0.5px solid rgba(232,184,75,0.2);border-radius:10px;padding:7px 12px;font-size:12.5px;color:rgba(240,237,232,0.65);margin-bottom:10px}
+.welcome strong{color:#E8B84B}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:10px;cursor:pointer;font-size:12px;font-family:inherit;border:0.5px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:rgba(240,237,232,0.45);transition:all 0.2s}
+.tab.active{font-weight:600}
+#chat{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column}
+#chat::-webkit-scrollbar{width:3px}
+#chat::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
+.msg-row{display:flex;margin-bottom:13px;gap:8px;align-items:flex-end;animation:fadeUp 0.25s ease}
+.msg-row.user{flex-direction:row-reverse}
+.msg-av{width:30px;height:30px;border-radius:10px;background:linear-gradient(135deg,#1A3A5C,#2A5A8C);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.msg-bubble{max-width:78%;padding:11px 14px;font-size:13.5px;line-height:1.7;word-break:break-word;white-space:pre-wrap}
+.msg-row.bot .msg-bubble{background:rgba(255,255,255,0.08);border:0.5px solid rgba(255,255,255,0.1);border-radius:16px 16px 16px 3px;color:#F0EDE8}
+.msg-row.user .msg-bubble{background:linear-gradient(135deg,#1A3A5C,#2A6A9C);border-radius:16px 16px 3px 16px;color:#F0EDE8}
+.typing{display:flex;gap:4px;padding:10px 13px;background:rgba(255,255,255,0.08);border-radius:16px 16px 16px 3px;width:fit-content;box-shadow:0 1px 4px rgba(0,0,0,0.07)}
+.dot{width:6px;height:6px;border-radius:50%;background:#E8B84B;animation:bounce 1.2s ease-in-out infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.quick-btn{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 11px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(240,237,232,0.75);font-family:inherit;transition:all 0.2s;text-align:left}
+.quick-btn:hover{background:rgba(255,255,255,0.1);transform:translateY(-1px)}
+.section-label{font-size:11px;color:rgba(240,237,232,0.35);text-align:center;letter-spacing:0.5px;margin-bottom:10px}
+.sugg-row{display:flex;gap:6px;flex-wrap:wrap;padding:5px 0 8px}
+.sugg-chip{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.09);border-radius:18px;padding:5px 11px;color:rgba(240,237,232,0.55);font-size:11.5px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:flex;align-items:center;gap:5px}
+.sugg-chip:hover{background:rgba(255,255,255,0.1)}
+.error-msg{text-align:center;padding:9px 13px;background:rgba(240,149,149,0.12);border:0.5px solid rgba(240,149,149,0.25);border-radius:10px;color:#f09595;font-size:13px;margin:5px 0}
+#input-bar{padding:10px 14px 16px;background:rgba(10,22,40,0.85);border-top:0.5px solid rgba(232,184,75,0.1);flex-shrink:0}
+.input-row{display:flex;gap:8px;align-items:flex-end}
+#msg-input{flex:1;background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.12);border-radius:13px;padding:11px 13px;color:#F0EDE8;font-size:13.5px;font-family:'DM Sans',sans-serif;resize:none;line-height:1.5;min-height:44px;max-height:110px;outline:none;transition:border-color 0.2s}
+#msg-input:focus{border-color:rgba(232,184,75,0.5)}
+#msg-input::placeholder{color:rgba(240,237,232,0.25)}
+#send-btn{background:linear-gradient(135deg,#1A3A5C,#2A6A9C);border:0.5px solid rgba(232,184,75,0.3);border-radius:11px;width:44px;height:44px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#F0EDE8;flex-shrink:0;font-size:17px;transition:all 0.2s}
+#send-btn:hover:not(:disabled){opacity:.85;transform:translateY(-1px)}
+#send-btn:disabled{opacity:.35;cursor:not-allowed}
+.disclaimer{text-align:center;font-size:10px;color:rgba(240,237,232,0.2);margin-top:7px}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+@media(max-width:500px){.quick-grid{grid-template-columns:1fr}.logo-text{font-size:15px}}
+</style>
+</head>
+<body>
+<div class="bg1"></div>
+<div class="bg2"></div>
+
+<div id="header">
+  <div class="logo-row">
+    <div class="logo">
+      <div class="logo-icon">⚖️</div>
+      <div>
+        <div class="logo-text"><span class="m">Madinina</span><span class="t">·</span><span class="j">Juridique</span></div>
+        <div class="logo-sub">Veille IA · Urbanisme & Construction</div>
+      </div>
+    </div>
+    <div class="status"><div class="status-dot"></div><span>Expert disponible</span></div>
+  </div>
+  <div class="welcome">👋 Bonjour <strong>Yannick</strong> — AMO · Martinique</div>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-cat="veille" onclick="switchCat('veille',this)" style="border-color:rgba(232,184,75,0.5);background:rgba(232,184,75,0.12);color:#E8B84B">📜 Veille juridique</button>
+    <button class="tab" data-cat="permis" onclick="switchCat('permis',this)">📑 Permis & autorisations</button>
+    <button class="tab" data-cat="construction" onclick="switchCat('construction',this)">🏗️ Construction & normes</button>
+    <button class="tab" data-cat="formation" onclick="switchCat('formation',this)">🎓 Formations</button>
+  </div>
+</div>
+
+<div id="chat">
+  <div class="msg-row bot">
+    <div class="msg-av">⚖️</div>
+    <div class="msg-bubble">Bonjour Yannick ! 👋
+
+Je suis Madinina Juridique, votre assistant IA spécialisé en droit de l'urbanisme et de la construction.
+
+En tant qu'AMO, je peux vous aider à :
+📜 Faire votre veille juridique (lois, décrets, jurisprudence)
+🏗️ Maîtriser les normes construction applicables en Martinique
+📑 Comprendre les procédures de permis et autorisations
+🎓 Former votre équipe avec des fiches et cas pratiques
+
+Que souhaitez-vous explorer aujourd'hui ?</div>
+  </div>
+  <div id="quick-section">
+    <div class="section-label">— 📜 Veille juridique — choisissez une question ou écrivez la vôtre —</div>
+    <div class="quick-grid" id="quick-grid">
+      <button class="quick-btn" onclick="sendMsg('Résume les points clés de la RE2020 et ses impacts pour une AMO en Martinique')"><span>🏗️</span><span>RE2020 — Points clés</span></button>
+      <button class="quick-btn" onclick="sendMsg('Explique l\'application de la loi Littoral en Martinique et ses contraintes pour construire')"><span>🌊</span><span>Loi Littoral Martinique</span></button>
+      <button class="quick-btn" onclick="sendMsg('Quelles sont les obligations de la loi MOP pour un AMO en maîtrise d\'ouvrage publique ?')"><span>🏛️</span><span>Loi MOP — Obligations</span></button>
+      <button class="quick-btn" onclick="sendMsg('Quelles sont les dernières évolutions réglementaires sur les PLU et PLUi en 2025-2026 ?')"><span>📋</span><span>PLU — Dernières évolutions</span></button>
+    </div>
+  </div>
+</div>
+
+<div id="input-bar">
+  <div class="input-row">
+    <textarea id="msg-input" placeholder="Posez votre question juridique..." rows="1"
+      oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';document.getElementById('send-btn').disabled=!this.value.trim()"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+    <button id="send-btn" onclick="sendMsg()" disabled>➤</button>
+  </div>
+  <div class="disclaimer">Madinina Juridique · Information juridique à titre indicatif · Propulsé par <strong style="color:rgba(232,184,75,0.5)">Madinina AI</strong></div>
+</div>
+
+<script>
+const SYSTEM = `Tu es Madinina Juridique, l'assistant IA expert en droit de l'urbanisme et de la construction pour les professionnels en France et dans les DOM-TOM (Martinique). Tu t'adresses principalement à des AMO, promoteurs, architectes et juristes immobiliers.
+
+DOMAINES : Code de l'urbanisme, PLU/PLUi, permis de construire, RE2020, normes parasismiques/paracycloniques Martinique, loi MOP, marchés publics, garanties construction, assurances.
+
+MARTINIQUE : Loi Littoral stricte, zone sismique 5, normes paracycloniques, PPRN, SAR, DEAL Martinique, Girardin/Pinel Outre-Mer.
+
+FORMAT : 1) Réponse directe 2) Textes de référence 3) Points d'attention 4) Conseil pratique. Expert, précis, accessible. Information juridique, pas conseil personnalisé.`;
+
+const CATEGORIES = {
+  veille:{color:"#E8B84B",label:"📜 Veille juridique",questions:[
+    {icon:"🏗️",label:"RE2020 — Points clés",q:"Résume les points clés de la RE2020 et ses impacts pour une AMO en Martinique"},
+    {icon:"🌊",label:"Loi Littoral Martinique",q:"Explique l'application de la loi Littoral en Martinique et ses contraintes pour construire"},
+    {icon:"🏛️",label:"Loi MOP — Obligations",q:"Quelles sont les obligations de la loi MOP pour un AMO en maîtrise d'ouvrage publique ?"},
+    {icon:"📋",label:"PLU — Dernières évolutions",q:"Quelles sont les dernières évolutions réglementaires sur les PLU et PLUi en 2025-2026 ?"},
+  ]},
+  permis:{color:"#5DD6E3",label:"📑 Permis & autorisations",questions:[
+    {icon:"⏱️",label:"Délais permis de construire",q:"Quels sont les délais légaux d'instruction d'un permis de construire en Martinique ?"},
+    {icon:"⚖️",label:"Recours contre un permis",q:"Comment fonctionne un recours gracieux ou contentieux contre un permis de construire ?"},
+    {icon:"🔄",label:"Modificatif & transfert",q:"Quelle est la différence entre un permis modificatif et un transfert de permis ?"},
+    {icon:"🏠",label:"Déclaration préalable",q:"Dans quels cas faut-il une déclaration préalable plutôt qu'un permis de construire ?"},
+  ]},
+  construction:{color:"#A8E6A3",label:"🏗️ Construction & normes",questions:[
+    {icon:"🌀",label:"Normes paracycloniques",q:"Quelles sont les normes paracycloniques obligatoires pour construire en Martinique ?"},
+    {icon:"🔨",label:"Garantie décennale",q:"Comment fonctionne la garantie décennale ? Qui est responsable et dans quels délais ?"},
+    {icon:"📊",label:"Marchés publics travaux",q:"Quelles sont les règles essentielles du CCAG Travaux pour un AMO ?"},
+    {icon:"🛡️",label:"Assurance Dommages-Ouvrage",q:"Quand l'assurance dommages-ouvrage est-elle obligatoire et que couvre-t-elle ?"},
+  ]},
+  formation:{color:"#F09595",label:"🎓 Formations",questions:[
+    {icon:"📚",label:"Fiche RE2020 pédagogique",q:"Crée-moi une fiche pédagogique sur la RE2020 avec cas pratiques pour former mon équipe"},
+    {icon:"❓",label:"Quiz droit de l'urbanisme",q:"Génère 5 questions de quiz sur le droit de l'urbanisme niveau professionnel AMO"},
+    {icon:"📝",label:"Cas pratique PLU",q:"Propose un cas pratique sur l'analyse d'un PLU pour un projet de logements collectifs"},
+    {icon:"🎯",label:"Plan de formation AMO",q:"Propose-moi un plan de formation juridique complet pour une équipe AMO débutante"},
+  ]}
+};
+
+let messages = [];
+let busy = false;
+let started = false;
+let currentCat = "veille";
+
+function switchCat(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.remove('active');
+    t.style.borderColor='rgba(255,255,255,0.08)';
+    t.style.background='rgba(255,255,255,0.04)';
+    t.style.color='rgba(240,237,232,0.45)';
+    t.style.fontWeight='400';
+  });
+  const color = CATEGORIES[cat].color;
+  btn.classList.add('active');
+  btn.style.borderColor=color+'55';
+  btn.style.background=color+'18';
+  btn.style.color=color;
+  btn.style.fontWeight='600';
+  if (!started) updateQuickGrid(cat);
+}
+
+function updateQuickGrid(cat) {
+  const qs = CATEGORIES[cat].questions;
+  document.querySelector('.section-label').textContent = `— ${CATEGORIES[cat].label} — choisissez une question ou écrivez la vôtre —`;
+  document.getElementById('quick-grid').innerHTML = qs.map(q =>
+    `<button class="quick-btn" onclick="sendMsg('${q.q.replace(/'/g,"\\'")}')"><span>${q.icon}</span><span>${q.label}</span></button>`
+  ).join('');
+}
+
+function addMsg(content, role) {
+  const chat = document.getElementById('chat');
+  const div = document.createElement('div');
+  div.className = `msg-row ${role}`;
+  if (role==='bot') {
+    div.innerHTML=`<div class="msg-av">⚖️</div><div class="msg-bubble">${content.replace(/\n/g,'<br>')}</div>`;
+  } else {
+    div.innerHTML=`<div class="msg-bubble">${content}</div>`;
+  }
+  chat.appendChild(div);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+function showTyping() {
+  const chat=document.getElementById('chat');
+  const div=document.createElement('div');
+  div.className='msg-row bot';div.id='typing-row';
+  div.innerHTML=`<div class="msg-av">⚖️</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;
+}
+
+function removeTyping(){const t=document.getElementById('typing-row');if(t)t.remove();}
+
+function showSuggestions() {
+  const chat=document.getElementById('chat');
+  const qs=CATEGORIES[currentCat].questions;
+  const div=document.createElement('div');
+  div.className='sugg-row';
+  div.innerHTML=qs.slice(0,3).map(q=>`<button class="sugg-chip" onclick="sendMsg('${q.q.replace(/'/g,"\\'")}')"><span>${q.icon}</span>${q.label}</button>`).join('');
+  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;
+}
+
+async function sendMsg(text) {
+  const input=document.getElementById('msg-input');
+  const msg=(text||input.value).trim();
+  if(!msg||busy)return;
+  input.value='';input.style.height='auto';
+  document.getElementById('send-btn').disabled=true;
+  if(!started){document.getElementById('quick-section').style.display='none';started=true;}
+  addMsg(msg,'user');
+  messages.push({role:'user',content:msg});
+  busy=true;showTyping();
+
+  try {
+    // Appel vers notre serveur local (pas directement à Anthropic)
+    const r=await fetch('/api/chat',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:1200,
+        system:SYSTEM,messages:messages
+      })
+    });
+    if(!r.ok)throw new Error(r.status);
+    const d=await r.json();
+    const reply=d.content?.find(b=>b.type==='text')?.text||'Je reste à votre disposition.';
+    messages.push({role:'assistant',content:reply});
+    removeTyping();addMsg(reply,'bot');showSuggestions();
+  } catch(e) {
+    removeTyping();
+    const chat=document.getElementById('chat');
+    const err=document.createElement('div');
+    err.className='error-msg';
+    err.textContent='⚠️ Erreur de connexion. Réessayez dans un instant.';
+    chat.appendChild(err);chat.scrollTop=chat.scrollHeight;
+  } finally {busy=false;}
+}
+
+document.getElementById('msg-input').addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
+});
+</script>
+</body>
+</html>
