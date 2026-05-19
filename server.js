@@ -3,14 +3,12 @@ const path = require('path');
 const app = express();
 
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname)));
 
-// Route principale
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Proxy sécurisé vers l'API Anthropic
 app.post('/api/chat', async (req, res) => {
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -22,16 +20,14 @@ app.post('/api/chat', async (req, res) => {
       },
       body: JSON.stringify(req.body)
     });
-
     const data = await response.json();
     res.json(data);
   } catch (error) {
-    console.error('API Error:', error);
-    res.status(500).json({ error: 'Erreur serveur' });
+    res.status(500).json({ error: error.message });
   }
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Madinina Juridique démarré sur le port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 });
